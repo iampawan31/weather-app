@@ -5,6 +5,10 @@ const api = {
   base: 'https://api.openweathermap.org/data/2.5/',
 };
 
+const dateBuilder = (d) => {
+  return d.toString();
+};
+
 function App() {
   return (
     <div className="app">
@@ -19,8 +23,12 @@ function App() {
           />
         </div>
         <div className="location-box">
-          <div className="location"></div>
-          <div className="date"></div>
+          <div className="location">New Delhi, IN</div>
+          <div className="date">{dateBuilder(new Date())}</div>
+        </div>
+        <div className="weather-box">
+          <div className="temperature">15&deg;C</div>
+          <div className="weather">Sunny</div>
         </div>
       </main>
     </div>
