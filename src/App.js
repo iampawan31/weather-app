@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CurrentLocation from './CurrentLocation';
 import './App.css';
 
 const api = {
@@ -28,46 +29,49 @@ function App() {
   };
 
   return (
-    <div
-      className={
-        typeof weather.main !== 'undefined'
-          ? weather.main.temp > 16
-            ? 'app warm'
+    <React.Fragment>
+      <div
+        className={
+          typeof weather.main !== 'undefined'
+            ? weather.main.temp > 16
+              ? 'app warm'
+              : 'app'
             : 'app'
-          : 'app'
-      }
-    >
-      <main>
-        <div className="search-box">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search..."
-            className="search-bar"
-            onKeyPress={search}
-          />
-        </div>
-        {typeof weather.main != 'undefined' ? (
-          <div>
-            <div className="location-box">
-              <div className="location">
-                {weather.name}, {weather.sys.country}
-              </div>
-              <div className="date">{dateBuilder(new Date())}</div>
-            </div>
-            <div className="weather-box">
-              <div className="temperature">
-                {Math.round(weather.main.temp)}&deg;C
-              </div>
-              <div className="weather">{weather.weather[0].main}</div>
-            </div>
+        }
+      >
+        <main>
+          <div className="search-box">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search..."
+              className="search-bar"
+              onKeyPress={search}
+            />
           </div>
-        ) : (
-          ''
-        )}
-      </main>
-    </div>
+          <CurrentLocation />
+          {typeof weather.main != 'undefined' ? (
+            <div>
+              <div className="location-box">
+                <div className="location">
+                  {weather.name}, {weather.sys.country}
+                </div>
+                <div className="date">{dateBuilder(new Date())}</div>
+              </div>
+              <div className="weather-box">
+                <div className="temperature">
+                  {Math.round(weather.main.temp)}&deg;C
+                </div>
+                <div className="weather">{weather.weather[0].main}</div>
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
+        </main>
+      </div>
+    </React.Fragment>
   );
 }
 
